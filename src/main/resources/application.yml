@@ -1,0 +1,3 @@
+spring.application.name: esami
+spring.profiles.active: mysql
+spring.config.import: optional:configserver:http://127.0.0.1:8071
