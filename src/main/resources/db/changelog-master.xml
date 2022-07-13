@@ -8,4 +8,32 @@
         http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
         http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-3.8.xsd">
 
+    <changeSet id="tableStudente" author="Capone.s">
+        <createTable tableName="studente">
+            <column name="matricola" type="integer">
+                <constraints primaryKey="true"></constraints>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="tableLibretto" author="Capone.s">
+        <createTable tableName="libretto">
+            <column name="id" type="integer" >
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="corso" type="integer">
+                <constraints nullable="false"/>
+            </column>
+            <column name="edizione_corso" type="integer">
+                <constraints nullable="false"/>
+            </column>
+            <column name="data_appello" type="date"/>
+            <column name="voto" type="varchar(3)"/>
+            <column name="studente" type="integer"/>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="libretto" baseColumnNames="studente" constraintName="fk_s" referencedTableName="studente"
+                                 referencedColumnNames="matricola"></addForeignKeyConstraint>
+        <addUniqueConstraint tableName="libretto" columnNames="corso, studente"></addUniqueConstraint>
+    </changeSet>
+
 </databaseChangeLog>
