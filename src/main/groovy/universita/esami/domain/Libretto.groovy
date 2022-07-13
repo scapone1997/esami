@@ -21,7 +21,8 @@ class Libretto {
     Integer edizioneCorso
     Integer corso
     @Column(name="data_appello")
-    Date dataAppello
+    Date data
+    String nome
     String voto
 
     @ManyToOne

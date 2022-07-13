@@ -13,13 +13,14 @@ class StudenteService {
         this.repository = repository
     }
 
-    void newStudente(Integer matricola){
+    def newStudente(Integer matricola){
         Studente studente = new Studente()
         studente.matricola = matricola
         repository.save(studente)
     }
 
     Studente findStudente(Integer matricola){
-        return repository.findById(matricola).get()
+        Optional<Studente> studente = repository.findById(matricola)
+        return studente.get()
     }
 }

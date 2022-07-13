@@ -25,6 +25,7 @@
                 <constraints nullable="false"/>
             </column>
             <column name="edizione_corso" type="integer"/>
+            <column name="nome" type="varchar(255)"/>
             <column name="data_appello" type="date"/>
             <column name="voto" type="varchar(3)"/>
             <column name="studente" type="integer"/>

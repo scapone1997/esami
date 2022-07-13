@@ -2,6 +2,7 @@ package universita.esami.service
 
 import org.springframework.stereotype.Service
 import universita.esami.domain.Libretto
+import universita.esami.domain.Studente
 import universita.esami.ext.NuovoStudente
 import universita.esami.repository.LibrettoRepository
 
@@ -15,12 +16,14 @@ class LibrettoService {
         this.studenteService = studenteService
     }
 
-    void inizializza(NuovoStudente nuovo){
-        studenteService.newStudente(nuovo.getMatricola())
-        nuovo.getCorsi().each {it-> {
+    def inizializza(NuovoStudente nuovo){
+        studenteService.newStudente(nuovo.matricola)
+        Studente studente = studenteService.findStudente(nuovo.matricola)
+        nuovo.esami.each {es-> {
                 Libretto libretto = new Libretto()
-                libretto.corso = it
-                libretto.studente = studenteService.findStudente(nuovo.getMatricola())
+                libretto.corso = es.id
+                libretto.studente = studente
+                libretto.nome = es.nome
                 librettoRepository.save(libretto)
             }
         }

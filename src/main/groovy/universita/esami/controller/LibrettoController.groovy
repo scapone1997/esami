@@ -1,5 +1,6 @@
 package universita.esami.controller
 
+import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
@@ -18,8 +19,9 @@ class LibrettoController {
     }
 
     @PostMapping("/nuovo-libretto")
-    void inizializza(@RequestBody NuovoStudente iscritto){
+    ResponseEntity<NuovoStudente> inizializza(@RequestBody NuovoStudente iscritto){
         librettoService.inizializza(iscritto)
+        return ResponseEntity.ok().body(iscritto)
     }
 
 }
