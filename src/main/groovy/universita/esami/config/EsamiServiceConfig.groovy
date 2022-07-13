@@ -7,8 +7,8 @@ import org.springframework.context.annotation.Configuration
 @ConfigurationProperties(prefix = "esami")
 class EsamiServiceConfig {
 
-    String msg;
-    String buildVersion;
-    Map<String, String> mailDetails;
-    List<String> activeBranches;
+    String msg
+    String buildVersion
+    Map<String, String> mailDetails
+    List<String> activeBranches
 }
