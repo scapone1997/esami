@@ -18,7 +18,6 @@ class StudenteService {
     }
 
     Studente findStudente(Integer matricola){
-        Optional<Studente> studente = repository.findById(matricola)
-        return studente.get()
+        return repository.findById(matricola).get()
     }
 }
