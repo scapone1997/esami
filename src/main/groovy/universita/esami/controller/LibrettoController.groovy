@@ -18,10 +18,10 @@ class LibrettoController {
         this.librettoService = librettoService
     }
 
-    @PostMapping("/nuovo-libretto")
-    ResponseEntity<NuovoStudente> inizializza(@RequestBody NuovoStudente iscritto){
+    @PostMapping("/carica-libretto")
+    ResponseEntity<String> inizializza(@RequestBody NuovoStudente iscritto){
         librettoService.inizializza(iscritto)
-        return ResponseEntity.ok().body(iscritto)
+        return ResponseEntity.ok().body("ok")
     }
 
 }
