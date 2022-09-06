@@ -7,6 +7,8 @@ import universita.esami.ext.NuovoStudente
 import universita.esami.repository.LibrettoRepository
 import universita.esami.repository.StudenteRepository
 
+import javax.transaction.Transactional
+
 @Service
 class LibrettoService {
     LibrettoRepository librettoRepository
@@ -49,5 +51,12 @@ class LibrettoService {
                     librettoRepository.save(l)
                 }
         )
+    }
+
+    @Transactional
+    def eliminaLibretto(Integer matricola){
+        Optional<Studente> s = studenteRepository.findById(matricola)
+        librettoRepository.deleteByStudente(s.get())
+        studenteRepository.delete(s.get())
     }
 }
