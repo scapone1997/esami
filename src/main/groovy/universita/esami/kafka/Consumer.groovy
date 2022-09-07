@@ -13,7 +13,7 @@ class Consumer {
     final LibrettoService librettoService
 
     @KafkaListener(topics = "studenti", groupId = "studenti")
-    public void consume(Messaggio message) {
+    def consume(Messaggio message) {
         switch (key) {
             case "aggiornaStudente":
                 NuovoStudente nuovoStudente = (NuovoStudente) instanceOf(message, NuovoStudente.class)
