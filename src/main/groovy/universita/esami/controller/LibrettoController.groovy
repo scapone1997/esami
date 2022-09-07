@@ -29,7 +29,7 @@ class LibrettoController {
     }
 
     @PutMapping("/libretto")
-    ResponseEntity<List<Libretto>> libretto(@RequestBody Libretto libretto){
+    ResponseEntity<String> libretto(@RequestBody Libretto libretto){
         librettoService.aggiorna(libretto)
         return ResponseEntity.ok().body("ok")
     }
