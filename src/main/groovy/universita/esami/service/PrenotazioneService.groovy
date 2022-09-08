@@ -14,9 +14,7 @@ class PrenotazioneService {
 
     LibrettoRepository librettoRepository
     StudenteService studenteService
-
     StudenteRepository studenteRepository
-
     PrenotazioneRepository prenotazioneRepository
 
     PrenotazioneService(LibrettoRepository librettoRepository, StudenteService studenteService, StudenteRepository studenteRepository, PrenotazioneRepository prenotazioneRepository) {
@@ -49,6 +47,5 @@ class PrenotazioneService {
         p.nome = prenotazioneEXT.nome
         p.codice = prenotazioneEXT.codice
         return p;
-
     }
 }
