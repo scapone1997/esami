@@ -28,7 +28,7 @@ class PrenotazioneService {
 
     Boolean isCorsoNonVerbalizzato(ControlloCorsoStudente corsoStudente){
         try {
-            Optional<Libretto> libretto = librettoRepository.findByCorsoAndStudente(corsoStudente.getCorso(), studenteRepository.findById(corsoStudente.getStudente()).get())
+            Optional<Libretto> libretto = librettoRepository.findByCorsoAndStudente(corsoStudente.corso, studenteRepository.findById(corsoStudente.studente).get())
             if(libretto.isEmpty()) return false else return true
         } catch (Exception e) {
             return false
