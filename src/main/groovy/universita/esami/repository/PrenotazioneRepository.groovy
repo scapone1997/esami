@@ -5,6 +5,6 @@ import org.springframework.stereotype.Repository
 import universita.esami.domain.Prenotazione
 
 @Repository
-interface PrenotazioneRepository extends  JpaRepository<Prenotazione, Integer>{
+interface PrenotazioneRepository extends JpaRepository<Prenotazione, Integer>{
 
 }
