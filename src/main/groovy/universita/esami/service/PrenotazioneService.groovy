@@ -41,13 +41,13 @@ class PrenotazioneService {
 
     Prenotazione toPrenotazione(PrenotazioneEXT prenotazioneEXT){
         Prenotazione p = new Prenotazione()
-        p.setStudente(studenteRepository.findById(prenotazioneEXT.getStudente()).get())
-        p.setVoto(prenotazioneEXT.getVoto())
-        p.setEdizioneCorso(prenotazioneEXT.getEdizioneCorso())
-        p.setCorso(prenotazioneEXT.getCorso())
-        p.setDataAppello(prenotazioneEXT.getDataAppello())
-        p.setNome(prenotazioneEXT.getNome())
-        p.setCodice(prenotazioneEXT.getCodice())
+        p.studente = studenteRepository.findById(prenotazioneEXT.studente).get()
+        p.voto = prenotazioneEXT.voto
+        p.edizioneCorso = prenotazioneEXT.edizioneCorso
+        p.corso = prenotazioneEXT.corso
+        p.dataAppello = prenotazioneEXT.dataAppello
+        p.nome = prenotazioneEXT.nome
+        p.codice = prenotazioneEXT.codice
         return p;
     }
 }
