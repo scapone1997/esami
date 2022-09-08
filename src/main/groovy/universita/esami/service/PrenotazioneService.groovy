@@ -49,5 +49,6 @@ class PrenotazioneService {
         p.nome = prenotazioneEXT.nome
         p.codice = prenotazioneEXT.codice
         return p;
+
     }
 }

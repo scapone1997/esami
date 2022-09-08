@@ -49,6 +49,7 @@ class LibrettoService {
                     l.edizioneCorso = libretto.edizioneCorso
                     l.voto = libretto.voto
                     librettoRepository.save(l)
+
                 }
         )
     }
