@@ -1,5 +1,6 @@
 package universita.esami.service
 
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import universita.esami.domain.Libretto
 import universita.esami.domain.Studente
@@ -11,16 +12,12 @@ import javax.transaction.Transactional
 
 @Service
 class LibrettoService {
+    @Autowired
     LibrettoRepository librettoRepository
+    @Autowired
     StudenteService studenteService
-
+    @Autowired
     StudenteRepository studenteRepository
-
-    LibrettoService(LibrettoRepository librettoRepository, StudenteService studenteService, StudenteRepository studenteRepository) {
-        this.librettoRepository = librettoRepository
-        this.studenteService = studenteService
-        this.studenteRepository = studenteRepository
-    }
 
     def inizializza(NuovoStudente nuovo){
         studenteService.newStudente(nuovo.matricola)
