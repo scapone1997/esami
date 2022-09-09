@@ -3,6 +3,7 @@ package universita.esami.service
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import universita.esami.domain.Libretto
+import universita.esami.domain.Prenotazione
 import universita.esami.domain.Studente
 import universita.esami.ext.NuovoStudente
 import universita.esami.repository.LibrettoRepository
@@ -56,5 +57,15 @@ class LibrettoService {
         Optional<Studente> s = studenteRepository.findById(matricola)
         librettoRepository.deleteByStudente(s.get())
         studenteRepository.delete(s.get())
+    }
+
+    void convalidaEsame(Studente studente, Integer voto, Integer corso, Date dataAppello, Integer edizioneCorso) throws Exception{
+        librettoRepository.findByCorsoAndStudente(corso, studente)
+                .ifPresent(l->{
+                    l.edizioneCorso = edizioneCorso
+                    l.voto = voto
+                    l.data = dataAppello
+                    librettoRepository.save(l)
+        })
     }
 }

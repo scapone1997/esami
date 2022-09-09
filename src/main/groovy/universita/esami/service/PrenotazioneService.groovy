@@ -6,6 +6,7 @@ import universita.esami.domain.Libretto
 import universita.esami.domain.Prenotazione
 import universita.esami.dto.ControlloCorsoStudente
 import universita.esami.ext.PrenotazioneEXT
+import universita.esami.kafka.Producer
 import universita.esami.repository.LibrettoRepository
 import universita.esami.repository.PrenotazioneRepository
 import universita.esami.repository.StudenteRepository
@@ -21,6 +22,10 @@ class PrenotazioneService {
     StudenteRepository studenteRepository
     @Autowired
     PrenotazioneRepository prenotazioneRepository
+    @Autowired
+    LibrettoService librettoService
+    @Autowired
+    Producer producer
 
     Boolean isCorsoNonVerbalizzato(ControlloCorsoStudente corsoStudente){
         try {
@@ -51,5 +56,26 @@ class PrenotazioneService {
         p.nome = prenotazioneEXT.nome
         p.codice = prenotazioneEXT.codice
         return p;
+    }
+
+    PrenotazioneEXT toPrenotazioneEXT(Prenotazione prenotazione){
+        PrenotazioneEXT p = new PrenotazioneEXT()
+        p.studente = prenotazione.studente.matricola
+        p.voto = prenotazione.voto
+        p.edizioneCorso = prenotazione.edizioneCorso
+        p.corso = prenotazione.corso
+        p.dataAppello = prenotazione.dataAppello
+        p.nome = prenotazione.nome
+        p.codice = prenotazione.codice
+        return p;
+    }
+
+    void esameSostenuto(PrenotazioneEXT pE){
+        Prenotazione p = toPrenotazione(pE)
+        prenotazioneRepository.findByStudenteAndCorso(p.studente, p.corso).ifPresent(pr->{
+            pr.voto = p.voto
+            prenotazioneRepository.save(pr)
+        })
+        librettoService.convalidaEsame(p.studente, p.voto, p.corso, p.dataAppello, p.edizioneCorso)
     }
 }
