@@ -27,14 +27,14 @@ class PrenotazioneController {
     }
 
     @RequestMapping(value = "/prenota-studente", method = RequestMethod.POST)
-    ResponseEntity<String> prenotaStudente(@RequestBody Prenotazione prenotazione){
+    ResponseEntity<Void> prenotaStudente(@RequestBody Prenotazione prenotazione){
         try {
-            String result = prenotaStudente(prenotazione)
+            prenotaStudente(prenotazione)
         } catch (Exception e) {
             println "prenotazione non andata a buon fine " + e.message
-            return ResponseEntity.badRequest().body(result)
+            return ResponseEntity.badRequest()
         }
-        return ResponseEntity.ok().body(result)
+        return ResponseEntity.ok()
     }
 }
 

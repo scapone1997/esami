@@ -1,5 +1,6 @@
 package universita.esami.service
 
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import universita.esami.domain.Libretto
 import universita.esami.domain.Prenotazione
@@ -30,7 +31,7 @@ class PrenotazioneService {
         }
     }
 
-    String prenotaStudente(Prenotazione prenotazione) throws Exception{
+    def prenotaStudente(Prenotazione prenotazione) throws Exception{
         try {
             prenotazioneRepository.save(prenotazione)
             println "prenotazione: " + prenotazione + "scritta nel DB"
