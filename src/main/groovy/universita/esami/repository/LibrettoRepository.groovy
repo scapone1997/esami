@@ -15,6 +15,8 @@ interface LibrettoRepository extends JpaRepository<Libretto, Integer>{
 
     Optional<Libretto> findByNomeAndStudente(String nome, Studente studente)
 
+    Optional<Libretto> findByCorsoAndStudente(Integer corso, Studente studente)
+
     void deleteByNomeAndStudente(String nome, Studente studente)
 
     void deleteByStudente(Studente studente);

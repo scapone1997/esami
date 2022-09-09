@@ -35,4 +35,29 @@
         <addUniqueConstraint tableName="libretto" columnNames="corso, studente"></addUniqueConstraint>
     </changeSet>
 
+    <changeSet id="tablePrenotazione" author="Capone.s">
+        <createTable tableName="prenotazione">
+            <column name="id" type="integer" >
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="edizione_corso" type="integer">
+                <constraints nullable="false"/>
+            </column>
+            <column name="corso" type="integer">
+                <constraints nullable="false"/>
+            </column>
+            <column name="data_appello" type="date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="nome" type="varchar(255)"/>
+            <column name="voto" type="varchar(3)"/>
+            <column name="studente" type="integer">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="prenotazione" baseColumnNames="studente" constraintName="fk_s25" referencedTableName="studente"
+                                 referencedColumnNames="matricola"></addForeignKeyConstraint>
+        <addUniqueConstraint tableName="prenotazione" columnNames="corso, studente"></addUniqueConstraint>
+    </changeSet>
+
 </databaseChangeLog>

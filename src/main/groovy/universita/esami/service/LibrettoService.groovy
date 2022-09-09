@@ -42,13 +42,14 @@ class LibrettoService {
     def aggiorna(Libretto libretto){
         librettoRepository.findByNomeAndStudente(libretto.nome, libretto.studente).ifPresent(
                 l->{
-                    l.setNome(libretto.nome)
-                    l.setEdizioneCorso(libretto.edizioneCorso)
-                    l.setCorso(libretto.corso)
-                    l.setData(libretto.data)
-                    l.setEdizioneCorso(libretto.edizioneCorso)
-                    l.setVoto(libretto.voto)
+                    l.nome = libretto.nome
+                    l.edizioneCorso = libretto.edizioneCorso
+                    l.corso = libretto.corso
+                    l.data = libretto.data
+                    l.edizioneCorso = libretto.edizioneCorso
+                    l.voto = libretto.voto
                     librettoRepository.save(l)
+
                 }
         )
     }
