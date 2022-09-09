@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod
+import universita.esami.domain.Libretto
 import universita.esami.domain.Prenotazione
 import universita.esami.dto.ControlloCorsoStudente
 import universita.esami.ext.NuovoStudente
@@ -47,6 +48,11 @@ class PrenotazioneController {
             return ResponseEntity.ok().body("Not found.")
         }
         return ResponseEntity.ok().body("Esame convalidato. ")
+    }
+
+    @GetMapping("/pulizia-prenotazioni")
+    ResponseEntity<List<Libretto>> puliziaPrenotazioni(){
+        return ResponseEntity.ok().body(prenotazioneService.cancellaPrenotazioniBocciati())
     }
 }
 

@@ -11,6 +11,8 @@ import universita.esami.repository.LibrettoRepository
 import universita.esami.repository.PrenotazioneRepository
 import universita.esami.repository.StudenteRepository
 
+import java.util.stream.Collectors
+
 @Service
 class PrenotazioneService {
 
@@ -76,6 +78,19 @@ class PrenotazioneService {
             pr.voto = p.voto
             prenotazioneRepository.save(pr)
         })
-        librettoService.convalidaEsame(p.studente, p.voto, p.corso, p.dataAppello, p.edizioneCorso)
+    }
+
+    List<Prenotazione> cancellaPrenotazioniBocciati(){
+        List<Prenotazione> resultPulizia = new ArrayList<>();
+        prenotazioneRepository
+                .findAll()
+                .stream()
+                .filter(p->p.dataAppello != null && p.voto < 18 && p.voto != null)
+                .collect(Collectors.toList())
+                .forEach(p->{
+                    resultPulizia.add(p)
+                    librettoRepository.delete(p)
+                })
+        return resultPulizia
     }
 }
