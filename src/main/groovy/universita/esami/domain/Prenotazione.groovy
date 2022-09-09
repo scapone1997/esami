@@ -11,9 +11,10 @@ import javax.persistence.Id
 import javax.persistence.JoinColumn
 import javax.persistence.ManyToOne
 import javax.persistence.Table
+import javax.persistence.UniqueConstraint
 
 @Entity
-@Table(name = "prenotazione")
+@Table(name = "prenotazione", uniqueConstraints = [@UniqueConstraint(columnNames = ["corso", "studente"])])
 @ToString
 class Prenotazione extends Messaggio{
     @Id

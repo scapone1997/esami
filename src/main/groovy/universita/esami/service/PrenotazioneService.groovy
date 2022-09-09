@@ -33,8 +33,14 @@ class PrenotazioneService {
         }
     }
 
-    String prenotaStudente(Prenotazione prenotazione){
-        prenotazioneRepository.save(prenotazione)
+    String prenotaStudente(Prenotazione prenotazione) throws Exception{
+        try {
+            prenotazioneRepository.save(prenotazione)
+            println "prenotazione: " + prenotazione + "scritta nel DB"
+        } catch (Exception e) {
+            String r = "salvataggio prenotazione non andato a buon fine "; println r
+            throw new Exception(r)
+        }
     }
 
     Prenotazione toPrenotazione(PrenotazioneEXT prenotazioneEXT){
