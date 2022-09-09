@@ -12,17 +12,14 @@ import universita.esami.repository.StudenteRepository
 @Service
 class PrenotazioneService {
 
+    @Autowired
     LibrettoRepository librettoRepository
+    @Autowired
     StudenteService studenteService
+    @Autowired
     StudenteRepository studenteRepository
+    @Autowired
     PrenotazioneRepository prenotazioneRepository
-
-    PrenotazioneService(LibrettoRepository librettoRepository, StudenteService studenteService, StudenteRepository studenteRepository, PrenotazioneRepository prenotazioneRepository) {
-        this.librettoRepository = librettoRepository
-        this.studenteService = studenteService
-        this.studenteRepository = studenteRepository
-        this.prenotazioneRepository = prenotazioneRepository
-    }
 
     Boolean isCorsoNonVerbalizzato(ControlloCorsoStudente corsoStudente){
         try {
