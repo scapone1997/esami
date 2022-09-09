@@ -74,7 +74,14 @@ class PrenotazioneService {
             prenotazioneRepository.save(p)
             PrenotazioneEXT esameConcluso = toPrenotazioneEXT(p)
             esameConcluso.codice = "esameConcluso"
-            producer.sendMessaggio(esameConcluso)
+            try {
+                producer.sendMessaggio(esameConcluso)
+            } catch (Exception e) {
+                println "Errore nell'invio messaggio a Kafka"
+                throw new Exception("Errore nell'invio messaggio a Kafka")
+            }
+            //aggiornare libretto
+            //cancellare prenotazione
         }
     }
 }

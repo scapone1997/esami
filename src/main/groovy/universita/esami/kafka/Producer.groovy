@@ -16,9 +16,9 @@ class Producer {
         SendResult<String, String> sendResult = null
         try {
             String key = messaggio.codice
-            String value = objectMapper.writeValueAsString(messaggio);
-            sendResult = kafkaTemplate.sendDefault(key, value).get();
-            println "Messaggio: " + messaggio.toString() + " inviato a Kafka."
+            String value = objectMapper.writeValueAsString(messaggio)
+            sendResult = kafkaTemplate.sendDefault(key, value).get()
+            println "Messaggio: " + messaggio + " inviato a Kafka."
         } catch (Exception e) {
             println "Eccezione lanciata nel send Kafka: " + e.getClass()
         }
