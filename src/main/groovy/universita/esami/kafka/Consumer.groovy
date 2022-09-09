@@ -26,13 +26,15 @@ class Consumer {
     def consume(String message) {
         Messaggio m = objectMapper.readValue(message, Messaggio.class)
         println "messaggio: " + m.codice + " in consumazione."
-        if(m.codice == "attivaStudente"){
-            librettoService.inizializza(objectMapper.readValue(message, NuovoStudente.class))
-        }
-        if(m.codice == "prenotaStudente"){
-            PrenotazioneEXT prenotazioneEXT = objectMapper.readValue(message, PrenotazioneEXT.class);
-            Prenotazione prenotazione = prenotazioneService.toPrenotazione(prenotazioneEXT)
-            prenotazioneService.prenotaStudente(prenotazione)
+        switch (m.codice){
+            case "attivaStudente":
+                librettoService.inizializza(objectMapper.readValue(message, NuovoStudente.class))
+                break
+            case "prenotaStudente":
+                PrenotazioneEXT prenotazioneEXT = objectMapper.readValue(message, PrenotazioneEXT.class);
+                Prenotazione prenotazione = prenotazioneService.toPrenotazione(prenotazioneEXT)
+                prenotazioneService.prenotaStudente(prenotazione)
+                break
         }
     }
 }

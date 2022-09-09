@@ -14,13 +14,13 @@ import universita.esami.ext.NuovoStudente;
 import universita.esami.service.PrenotazioneService;
 
 @Controller
-@RequestMapping("api/")
+@RequestMapping(value = "/api", produces = "application/json")
 class PrenotazioneController {
 
     @Autowired
     PrenotazioneService prenotazioneService
 
-    @GetMapping("/esiste-corso-non-verbalizzato")
+    @RequestMapping(value = "/esiste-corso-non-verbalizzato", method = RequestMethod.GET)
     ResponseEntity<Boolean> isCorsoNonVerbalizzato(@RequestBody ControlloCorsoStudente corsoStudente){
         Boolean result = prenotazioneService.isCorsoNonVerbalizzato(corsoStudente)
         return ResponseEntity.ok().body(result)
