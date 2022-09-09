@@ -23,6 +23,8 @@ class PrenotazioneService {
     @Autowired
     PrenotazioneRepository prenotazioneRepository
     @Autowired
+    LibrettoService librettoService
+    @Autowired
     Producer producer
 
     Boolean isCorsoNonVerbalizzato(ControlloCorsoStudente corsoStudente){
@@ -68,20 +70,12 @@ class PrenotazioneService {
         return p;
     }
 
-    Prenotazione esameSostenuto(PrenotazioneEXT prenotazioneEXT){
-        Prenotazione p = toPrenotazione(prenotazioneEXT)
-        if(p.voto != null){
-            prenotazioneRepository.save(p)
-            PrenotazioneEXT esameConcluso = toPrenotazioneEXT(p)
-            esameConcluso.codice = "esameConcluso"
-            try {
-                producer.sendMessaggio(esameConcluso)
-            } catch (Exception e) {
-                println "Errore nell'invio messaggio a Kafka"
-                throw new Exception("Errore nell'invio messaggio a Kafka")
-            }
-            //aggiornare libretto
-            //cancellare prenotazione
-        }
+    void esameSostenuto(PrenotazioneEXT pE){
+        Prenotazione p = toPrenotazione(pE)
+        prenotazioneRepository.findByStudenteAndCorso(p.studente, p.corso).ifPresent(pr->{
+            pr.voto = p.voto
+            prenotazioneRepository.save(pr)
+        })
+        librettoService.convalidaEsame(p.studente, p.voto, p.corso, p.dataAppello, p.edizioneCorso)
     }
 }
