@@ -22,9 +22,15 @@ class LibrettoController {
     @Autowired
     LibrettoService librettoService
 
-    @GetMapping("/elenco-esami/{matricola}")
+    @GetMapping("/elenco-esami-da-sostenere/{matricola}")
+    ResponseEntity<List<Libretto>> elencoEsamiDaSostenere(@PathVariable Integer matricola){
+        List<Libretto> list = librettoService.elencoEsamiDaSostenere(matricola)
+        return ResponseEntity.ok().body(list)
+    }
+
+    @GetMapping("/libretto/{matricola}")
     ResponseEntity<List<Libretto>> libretto(@PathVariable Integer matricola){
-        List<Libretto> list = librettoService.getLibretto(matricola)
+        List<Libretto> list = librettoService.libretto(matricola)
         return ResponseEntity.ok().body(list)
     }
 

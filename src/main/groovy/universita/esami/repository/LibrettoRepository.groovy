@@ -10,8 +10,11 @@ import universita.esami.domain.Studente
 @Repository
 interface LibrettoRepository extends JpaRepository<Libretto, Integer>{
 
-    @Query(value = "SELECT * FROM libretto WHERE studente =:matricola", nativeQuery = true)
-    List<Libretto> findByStudente(@Param("matricola") Integer matricola)
+    @Query(value = "SELECT * FROM esami.libretto l WHERE l.studente=:matricola and l.voto is NULL", nativeQuery = true)
+    List<Libretto> findEsamiDaSostenereByStudente(@Param("matricola") Integer matricola)
+
+    @Query(value = "SELECT * FROM esami.libretto l WHERE l.studente=:matricola and l.voto is not NULL", nativeQuery = true)
+    List<Libretto> findLibrettoByMatricola(@Param("matricola") Integer matricola)
 
     Optional<Libretto> findByNomeAndStudente(String nome, Studente studente)
 

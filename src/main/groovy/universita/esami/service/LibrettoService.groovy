@@ -33,8 +33,12 @@ class LibrettoService {
         }
     }
 
-    List<Libretto> getLibretto(Integer matricola){
-        return librettoRepository.findByStudente(matricola)
+    List<Libretto> elencoEsamiDaSostenere(Integer matricola){
+        return librettoRepository.findEsamiDaSostenereByStudente(matricola)
+    }
+
+    List<Libretto> libretto(Integer matricola){
+        return librettoRepository.findLibrettoByMatricola(matricola)
     }
 
     def aggiorna(Libretto libretto){
@@ -47,7 +51,6 @@ class LibrettoService {
                     l.edizioneCorso = libretto.edizioneCorso
                     l.voto = libretto.voto
                     librettoRepository.save(l)
-
                 }
         )
     }
