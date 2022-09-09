@@ -35,6 +35,8 @@ class Consumer {
                 Prenotazione prenotazione = prenotazioneService.toPrenotazione(prenotazioneEXT)
                 prenotazioneService.prenotaStudente(prenotazione)
                 break
+            case "esameConcluso":
+                break
         }
     }
 }
