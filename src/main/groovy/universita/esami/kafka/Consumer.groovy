@@ -25,7 +25,7 @@ class Consumer {
     @KafkaListener(topics = "studenti", groupId = "studenti")
     def consume(String message) {
         Messaggio m = objectMapper.readValue(message, Messaggio.class)
-        println "messaggio: " + m.codice + " in consumazione."
+        println "messaggio: " + m + " in consumazione."
         switch (m.codice){
             case "attivaStudente":
                 librettoService.inizializza(objectMapper.readValue(message, NuovoStudente.class))

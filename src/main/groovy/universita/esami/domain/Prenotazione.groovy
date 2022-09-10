@@ -1,6 +1,6 @@
 package universita.esami.domain
 
-import lombok.ToString
+import groovy.transform.ToString
 import universita.esami.kafka.Messaggio
 
 import javax.persistence.Column

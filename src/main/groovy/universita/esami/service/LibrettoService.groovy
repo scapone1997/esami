@@ -31,6 +31,7 @@ class LibrettoService {
                 librettoRepository.save(libretto)
             }
         }
+        println nuovo.toString() + " aggiunto al DB."
     }
 
     List<Libretto> elencoEsamiDaSostenere(Integer matricola){

@@ -1,9 +1,12 @@
 package universita.esami.domain
 
+import groovy.transform.ToString
+
 import javax.persistence.*
 
 @Entity
 @Table(name = "libretto")
+@ToString
 class Libretto {
 
     @Id
