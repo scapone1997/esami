@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod
+import org.springframework.web.bind.annotation.ResponseBody
 import universita.esami.domain.Libretto
 import universita.esami.domain.Prenotazione
 import universita.esami.dto.ControlloCorsoStudente
@@ -22,8 +23,8 @@ class PrenotazioneController {
     @Autowired
     PrenotazioneService prenotazioneService
 
-    @GetMapping("/esiste-corso-non-verbalizzato")
-    ResponseEntity<Boolean> isCorsoNonVerbalizzato(@RequestBody ControlloCorsoStudente corsoStudente){
+    @PostMapping("/esiste-corso-non-verbalizzato")
+    @ResponseBody ResponseEntity<?> isCorsoNonVerbalizzato(@RequestBody ControlloCorsoStudente corsoStudente){
         Boolean result = prenotazioneService.isCorsoNonVerbalizzato(corsoStudente)
         return ResponseEntity.ok().body(result)
     }
@@ -51,8 +52,13 @@ class PrenotazioneController {
     }
 
     @GetMapping("/pulizia-prenotazioni")
-    ResponseEntity<List<Libretto>> puliziaPrenotazioni(){
+    ResponseEntity<List<Libretto>> puliziaPrenotazioniBocciati(){
         return ResponseEntity.ok().body(prenotazioneService.cancellaPrenotazioniBocciati())
+    }
+
+    @GetMapping("/pulizia-esami-convalidati")
+    ResponseEntity<List<Libretto>> puliziaPrenotazioniPromossi(){
+        return ResponseEntity.ok().body(prenotazioneService.cancellaPrenotazioniPromossi())
     }
 }
 

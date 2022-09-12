@@ -11,6 +11,8 @@ import universita.esami.repository.LibrettoRepository
 import universita.esami.repository.PrenotazioneRepository
 import universita.esami.repository.StudenteRepository
 
+import java.time.LocalDate
+import java.util.function.Predicate
 import java.util.stream.Collectors
 
 @Service
@@ -93,4 +95,19 @@ class PrenotazioneService {
                 })
         return resultPulizia
     }
+
+    List<Prenotazione> cancellaPrenotazioniPromossi(){
+        List<Prenotazione> resultPulizia = new ArrayList<>();
+        prenotazioneRepository
+                .findAll()
+                .stream()
+                .filter(p->p.dataAppello != null && p.dataAppello.after(LocalDate.now().plusDays(5L)) && p.voto >= 18 && p.voto != null)
+                .collect(Collectors.toList())
+                .forEach(p->{
+                    resultPulizia.add(p)
+                    librettoRepository.delete(p)
+                })
+        return resultPulizia
+    }
+
 }
