@@ -1,6 +1,6 @@
 package universita.esami.kafka
 
-import lombok.ToString
+import groovy.transform.ToString
 
 @ToString
 class Messaggio {
