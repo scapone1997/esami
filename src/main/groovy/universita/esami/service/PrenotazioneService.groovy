@@ -97,7 +97,7 @@ class PrenotazioneService {
         return cancellaPrenotazioni(p->p.dataAppello != null && p.dataAppello.after(LocalDate.now().plusDays(5L)) && p.voto != null)
     }
 
-    List<Prenotazione> cancellaPrenotazioni(Predicate<Prenotazione> p){
+    private List<Prenotazione> cancellaPrenotazioni(Predicate<Prenotazione> p){
         List<Prenotazione> resultPulizia = new ArrayList<>();
         prenotazioneRepository
                 .findAll()
