@@ -94,7 +94,7 @@ class PrenotazioneService {
     }
 
     List<Prenotazione> cancellaPrenotazioniPromossi(){
-        return cancellaPrenotazioni(p->p.dataAppello != null && p.dataAppello.after(LocalDate.now().plusDays(5L)) 18 && p.voto != null)
+        return cancellaPrenotazioni(p->p.dataAppello != null && p.dataAppello.after(LocalDate.now().plusDays(5L)) && p.voto != null)
     }
 
     List<Prenotazione> cancellaPrenotazioni(Predicate<Prenotazione> p){
@@ -104,9 +104,9 @@ class PrenotazioneService {
                 .stream()
                 .filter(p)
                 .collect(Collectors.toList())
-                .forEach(p->{
-                    resultPulizia.add(p)
-                    librettoRepository.delete(p)
+                .forEach(pr->{
+                    resultPulizia.add(pr)
+                    librettoRepository.delete(pr)
                 })
         return resultPulizia
     }
