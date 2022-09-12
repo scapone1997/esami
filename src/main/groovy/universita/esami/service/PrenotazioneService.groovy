@@ -6,13 +6,11 @@ import universita.esami.domain.Libretto
 import universita.esami.domain.Prenotazione
 import universita.esami.dto.ControlloCorsoStudente
 import universita.esami.ext.PrenotazioneEXT
-import universita.esami.kafka.Producer
 import universita.esami.repository.LibrettoRepository
 import universita.esami.repository.PrenotazioneRepository
 import universita.esami.repository.StudenteRepository
 
 import java.time.LocalDate
-import java.util.function.Predicate
 import java.util.stream.Collectors
 
 @Service
@@ -21,15 +19,9 @@ class PrenotazioneService {
     @Autowired
     LibrettoRepository librettoRepository
     @Autowired
-    StudenteService studenteService
-    @Autowired
     StudenteRepository studenteRepository
     @Autowired
     PrenotazioneRepository prenotazioneRepository
-    @Autowired
-    LibrettoService librettoService
-    @Autowired
-    Producer producer
 
     Boolean isCorsoNonVerbalizzato(ControlloCorsoStudente corsoStudente){
         try {
