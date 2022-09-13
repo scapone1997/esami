@@ -52,4 +52,16 @@ class LibrettoController {
         return ResponseEntity.ok().body("ok")
     }
 
+    @PostMapping("/convalida-esame/{matricola}/{corso}")
+    ResponseEntity<?> convalidaEsane(@PathVariable Integer corso, @PathVariable Integer matricola){
+        Libretto l = null
+        try {
+            l = librettoService.convalidaEsame(corso, matricola)
+        } catch (Exception e) {
+            println "Impossibile convalidare."
+            return ResponseEntity.ok().body(e.getMessage())
+        }
+        return ResponseEntity.ok().body(l)
+    }
+
 }

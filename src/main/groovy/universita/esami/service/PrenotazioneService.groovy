@@ -94,7 +94,7 @@ class PrenotazioneService {
     }
 
     List<Prenotazione> cancellaPrenotazioniPromossi(){
-        return cancellaPrenotazioni(p->p.dataAppello != null && p.dataAppello.after(LocalDate.now().plusDays(5L)) && p.voto != null)
+        return cancellaPrenotazioni(p->p.dataAppello != null && p.dataAppello.toLocalDate().isBefore(LocalDate.now()) && p.voto != null)
     }
 
     private List<Prenotazione> cancellaPrenotazioni(Predicate<Prenotazione> p){

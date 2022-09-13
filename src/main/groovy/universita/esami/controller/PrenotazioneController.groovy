@@ -7,12 +7,10 @@ import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RequestMethod
 import org.springframework.web.bind.annotation.ResponseBody
 import universita.esami.domain.Libretto
 import universita.esami.domain.Prenotazione
 import universita.esami.dto.ControlloCorsoStudente
-import universita.esami.ext.NuovoStudente
 import universita.esami.ext.PrenotazioneEXT;
 import universita.esami.service.PrenotazioneService;
 
@@ -51,7 +49,7 @@ class PrenotazioneController {
         return ResponseEntity.ok().body("Esame convalidato. ")
     }
 
-    @GetMapping("/pulizia-prenotazioni")
+    @GetMapping("/pulizia-prenotazioni-bocciati")
     ResponseEntity<List<Libretto>> puliziaPrenotazioniBocciati(){
         return ResponseEntity.ok().body(prenotazioneService.cancellaPrenotazioniBocciati())
     }
