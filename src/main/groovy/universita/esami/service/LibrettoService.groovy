@@ -2,11 +2,13 @@ package universita.esami.service
 
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
+import org.springframework.web.bind.annotation.PathVariable
 import universita.esami.domain.Libretto
 import universita.esami.domain.Prenotazione
 import universita.esami.domain.Studente
 import universita.esami.ext.NuovoStudente
 import universita.esami.repository.LibrettoRepository
+import universita.esami.repository.PrenotazioneRepository
 import universita.esami.repository.StudenteRepository
 
 import javax.transaction.Transactional
@@ -19,6 +21,8 @@ class LibrettoService {
     StudenteService studenteService
     @Autowired
     StudenteRepository studenteRepository
+    @Autowired
+    PrenotazioneRepository prenotazioneRepository
 
     def inizializza(NuovoStudente nuovo){
         studenteService.newStudente(nuovo.matricola)
@@ -63,13 +67,18 @@ class LibrettoService {
         studenteRepository.delete(s.get())
     }
 
-    void convalidaEsame(Studente studente, Integer voto, Integer corso, Date dataAppello, Integer edizioneCorso) throws Exception{
-        librettoRepository.findByCorsoAndStudente(corso, studente)
-                .ifPresent(l->{
-                    l.edizioneCorso = edizioneCorso
-                    l.voto = voto
-                    l.data = dataAppello
-                    librettoRepository.save(l)
-        })
+    Libretto convalidaEsame(Integer corso, Integer studente) throws Exception{
+        Studente s = studenteService.findStudente(studente)
+        Prenotazione p = prenotazioneRepository.findByStudenteAndCorso(s, corso).get()
+        if(p.voto != null ){
+            librettoRepository.findByCorsoAndStudente(corso, s)
+                    .ifPresent(l->{
+                        l.edizioneCorso = p.edizioneCorso
+                        l.voto = p.voto
+                        l.data = p.dataAppello
+                        librettoRepository.save(l)
+                    })
+        }
+        return librettoRepository.findByCorsoAndStudente(corso, studenteRepository.findById(studente).get()).get()
     }
 }

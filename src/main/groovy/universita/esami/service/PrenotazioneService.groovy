@@ -11,6 +11,7 @@ import universita.esami.repository.PrenotazioneRepository
 import universita.esami.repository.StudenteRepository
 
 import java.time.LocalDate
+import java.util.function.Predicate
 import java.util.stream.Collectors
 
 @Service
@@ -74,7 +75,7 @@ class PrenotazioneService {
         })
     }
 
-    List<Prenotazione> cancellaPrenotazioniBocciati(){
+    List<Prenotazione> cancellaPrenotazioniBocciati2(){
         List<Prenotazione> resultPulizia = new ArrayList<>();
         prenotazioneRepository
                 .findAll()
@@ -88,16 +89,24 @@ class PrenotazioneService {
         return resultPulizia
     }
 
+    List<Prenotazione> cancellaPrenotazioniBocciati(){
+        return cancellaPrenotazioni(p->p.dataAppello != null && p.voto < 18 && p.voto != null)
+    }
+
     List<Prenotazione> cancellaPrenotazioniPromossi(){
+        return cancellaPrenotazioni(p->p.dataAppello != null && p.dataAppello.toLocalDate().isBefore(LocalDate.now()) && p.voto != null)
+    }
+
+    private List<Prenotazione> cancellaPrenotazioni(Predicate<Prenotazione> p){
         List<Prenotazione> resultPulizia = new ArrayList<>();
         prenotazioneRepository
                 .findAll()
                 .stream()
-                .filter(p->p.dataAppello != null && p.dataAppello.after(LocalDate.now().plusDays(5L)) && p.voto >= 18 && p.voto != null)
+                .filter(p)
                 .collect(Collectors.toList())
-                .forEach(p->{
-                    resultPulizia.add(p)
-                    librettoRepository.delete(p)
+                .forEach(pr->{
+                    resultPulizia.add(pr)
+                    librettoRepository.delete(pr)
                 })
         return resultPulizia
     }
